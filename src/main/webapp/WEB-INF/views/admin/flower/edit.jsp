@@ -109,17 +109,17 @@
 
     function addNew(data) {
         $.ajax({
-            url: '${newAPI}',
+            url: '${editFlowerURL}',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(data),
             dataType: 'json',
             success: function (result) {
                 console.log(result)
-                <%--window.location.href = "${editFlowerURL}?id="+result.id+"&message=insert_success";--%>
+                window.location.href = "${editFlowerURL}?id="+result.id+"&message=insert_success";
             },
             error: function (error) {
-                <%--window.location.href = "${flowerURL}?page=1&limit=2&message=error_system";--%>
+                window.location.href = "${flowerURL}?page=1&limit=2&message=error_system";
                 console.log(error)
                 console.log(this.url)
             }
@@ -128,7 +128,7 @@
 
     function updateNew(data) {
         $.ajax({
-            url: '${newAPI}',
+            url: '${editFlowerURL}',
             type: 'PUT',
             contentType: 'application/json',
             data: JSON.stringify(data),

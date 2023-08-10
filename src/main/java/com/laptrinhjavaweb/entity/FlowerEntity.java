@@ -1,11 +1,8 @@
 package com.laptrinhjavaweb.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "flower")
@@ -22,6 +19,10 @@ public class FlowerEntity {
     private int price;
     @Column(name = "flower_quantity")
     private int quantity;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "flower_invoice", joinColumns = @JoinColumn(name = "flower_id"),
+            inverseJoinColumns = @JoinColumn(name = "invoice_id"))
+    private List<InvoiceEntity> invoices = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -57,5 +58,13 @@ public class FlowerEntity {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public List<InvoiceEntity> getInvoices() {
+        return invoices;
+    }
+
+    public void setInvoices(List<InvoiceEntity> invoices) {
+        this.invoices = invoices;
     }
 }

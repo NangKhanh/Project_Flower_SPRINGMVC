@@ -60,5 +60,8 @@ public class FlowerService implements IFlowerService {
 	@Override
 	@Transactional
 	public void delete(long[] ids) {
+		for(long id: ids){
+			flowerRepository.delete(id);
+		}
 	}
 }
