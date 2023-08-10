@@ -50,6 +50,12 @@
                     </a>
                     <b class="arrow"></b>
                 </li>
+                <li>
+                    <a href="<c:url value='/quan-tri/nguoi-dung/danh-sach'/>">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        DS người dùng
+                    </a>
+                </li>
             </ul>
         </li>
     </ul>
