@@ -24,8 +24,8 @@ public class PartnerEntity {
     private String type;
     @Column(name = "status")
     private int status;
-    @OneToMany(mappedBy = "partner")
-    private List<InvoiceEntity> invoices = new ArrayList<>();
+//    @OneToMany(mappedBy = "partner")
+//    private List<InvoiceEntity> invoices = new ArrayList<>();
     public Long getId() {
         return id;
     }
@@ -86,11 +86,11 @@ public class PartnerEntity {
         this.status = status;
     }
 
-    public List<InvoiceEntity> getInvoices() {
-        return invoices;
-    }
-
-    public void setInvoices(List<InvoiceEntity> invoices) {
-        this.invoices = invoices;
-    }
+//    public List<InvoiceEntity> getInvoices() {
+//        return invoices;
+//    }
+//
+//    public void setInvoices(List<InvoiceEntity> invoices) {
+//        this.invoices = invoices;
+//    }
 }

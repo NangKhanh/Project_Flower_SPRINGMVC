@@ -1,6 +1,5 @@
 package com.laptrinhjavaweb.dto;
 
-import javax.persistence.Column;
 
 public class PartnerDTO extends AbstractDTO<PartnerDTO>{
     private String username;
