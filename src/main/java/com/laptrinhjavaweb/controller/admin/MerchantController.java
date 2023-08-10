@@ -1,7 +1,9 @@
 package com.laptrinhjavaweb.controller.admin;
 
 import com.laptrinhjavaweb.dto.FlowerDTO;
-import com.laptrinhjavaweb.service.IFlowerService;
+import com.laptrinhjavaweb.dto.PartnerDTO;
+import com.laptrinhjavaweb.entity.PartnerEntity;
+import com.laptrinhjavaweb.service.impl.MerchantService;
 import com.laptrinhjavaweb.util.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -13,47 +15,45 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
-@Controller(value = "flowerController")
-
-public class FlowerController {
-
+@Controller(value = "merchantController")
+public class MerchantController {
     @Autowired
-    private IFlowerService flowerService;
+    private MerchantService merchantService;
 
     @Autowired
     private MessageUtil messageUtil;
 
-    @GetMapping("/quan-tri/hoa/danh-sach")
+    @GetMapping("/quan-tri/merchant/danh-sach")
     public ModelAndView showList(@RequestParam("page") int page,
                                  @RequestParam("limit") int limit, HttpServletRequest request){
 
-        FlowerDTO model = new FlowerDTO();
+        PartnerDTO model = new PartnerDTO();
         model.setPage(page);
         model.setLimit(limit);
 
-        ModelAndView mav = new ModelAndView("admin/flower/list");
+        ModelAndView mav = new ModelAndView("admin/partner/merchant/list");
 
         Pageable pageable = new PageRequest(page - 1, limit);
-        model.setListResult(flowerService.findAll(pageable));
-        model.setTotalItem(flowerService.getTotalItem());
+        model.setListResult(merchantService.findAll(pageable));
+        model.setTotalItem(merchantService.getTotalItem());
         model.setTotalPage((int) Math.ceil((double) model.getTotalItem() / model.getLimit()));
         setMessageAndAlert(request, mav, model);
         mav.addObject("model", model);
         return mav;
     }
 
-    @GetMapping ("/quan-tri/hoa/chinh-sua")
-    public ModelAndView editFlower(@RequestParam(value = "id", required = false) Long id, HttpServletRequest request){
-        ModelAndView mav = new ModelAndView("admin/flower/edit");
-        FlowerDTO model = new FlowerDTO();
+    @GetMapping ("/quan-tri/merchant/chinh-sua")
+    public ModelAndView editMerchant(@RequestParam(value = "id", required = false) Long id, HttpServletRequest request){
+        ModelAndView mav = new ModelAndView("admin/partner/merchant/edit");
+        PartnerDTO model = new PartnerDTO();
         if(id != null){
-            model = flowerService.findById(id);
+            model = merchantService.findById(id);
         }
         setMessageAndAlert(request, mav, model);
         return mav;
     }
 
-    private void setMessageAndAlert(HttpServletRequest request, ModelAndView mav, FlowerDTO model) {
+    private void setMessageAndAlert(HttpServletRequest request, ModelAndView mav, PartnerDTO model) {
         if (request.getParameter("message") != null) {
             Map<String, String> message = messageUtil.getMessage(request.getParameter("message"));
             mav.addObject("message", message.get("message"));
@@ -62,21 +62,21 @@ public class FlowerController {
         mav.addObject("model", model);
     }
 
-    @PostMapping("/quan-tri/hoa/chinh-sua")
+    @PostMapping("/quan-tri/merchant/chinh-sua")
     @ResponseBody
-    public FlowerDTO createFlower(@RequestBody FlowerDTO flowerDTO){
-        return flowerService.save(flowerDTO);
+    public PartnerDTO createFlower(@RequestBody PartnerDTO partnerDTO){
+        return merchantService.save(partnerDTO);
     }
 
-    @PutMapping("/quan-tri/hoa/chinh-sua")
+    @PutMapping("/quan-tri/merchant/chinh-sua")
     @ResponseBody
-    public FlowerDTO updateFlower(@RequestBody FlowerDTO flowerDTO){
-        return flowerService.save(flowerDTO);
+    public PartnerDTO updateMerchant(@RequestBody PartnerDTO partnerDTO){
+        return merchantService.save(partnerDTO);
     }
 
-    @DeleteMapping ("/quan-tri/hoa/chinh-sua")
+    @DeleteMapping ("/quan-tri/merchant/chinh-sua")
     @ResponseBody
     public void deleteNew(@RequestBody long[] ids){
-        flowerService.delete(ids);
+        merchantService.delete(ids);
     }
 }

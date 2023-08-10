@@ -1,8 +1,8 @@
 <%@include file="/common/taglib.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
-<c:url var="flowerURL" value="/quan-tri/hoa/danh-sach"/>
-<c:url var="editFlowerURL" value="/quan-tri/hoa/chinh-sua"/>
+<c:url var="merchantURL" value="/quan-tri/merchant/danh-sach"/>
+<c:url var="editMerchantURL" value="/quan-tri/merchant/chinh-sua"/>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -14,7 +14,7 @@
 
 <body>
 <div class="main-content">
-    <form action="<c:url value='/quan-tri/hoa/danh-sach'/>" id="formSubmit" method="get">
+    <form action="<c:url value='/quan-tri/merchant/danh-sach'/>" id="formSubmit" method="get">
 
         <div class="main-content-inner">
             <div class="breadcrumbs ace-save-state" id="breadcrumbs">
@@ -33,10 +33,10 @@
                             <div class="table-btn-controls">
                                 <div class="pull-right tableTools-container">
                                     <div class="dt-buttons btn-overlap btn-group">
-                                        <c:url var="createFlowerURL" value="/quan-tri/hoa/chinh-sua"/>
+                                        <c:url var="createMerchantURL" value="/quan-tri/merchant/chinh-sua"/>
                                         <a flag="info"
                                            class="dt-button buttons-colvis btn btn-white btn-primary btn-bold" data-toggle="tooltip"
-                                           title='Thêm hoa' href='${createFlowerURL}'>
+                                           title='Thêm mới merchant' href='${createMerchantURL}'>
 															<span>
 																<i class="fa fa-plus-circle bigger-110 purple"></i>
 															</span>
@@ -58,8 +58,8 @@
                                         <thead>
                                         <tr>
                                             <th><input type="checkbox" id="checkAll"></th>
-                                            <th>Tên hoa</th>
-                                            <th>Gia</th>
+                                            <th>Username</th>
+                                            <th>Số điện thoại</th>
                                             <th>Thao tác</th>
                                         </tr>
                                         </thead>
@@ -67,14 +67,14 @@
                                         <c:forEach var="item" items="${model.listResult}">
                                             <tr>
                                                 <td><input type="checkbox" id="checkbox_${item.id}" value="${item.id}"></td>
-                                                <td>${item.name}</td>
-                                                <td>${item.price}</td>
+                                                <td>${item.username}</td>
+                                                <td>${item.phone}</td>
                                                 <td>
-                                                    <c:url var="updateFlowerURL" value="/quan-tri/hoa/chinh-sua">
+                                                    <c:url var="updateMerchantURL" value="/quan-tri/merchant/chinh-sua">
                                                         <c:param name="id" value="${item.id}"/>
                                                     </c:url>
                                                     <a class="btn btn-sm btn-primary btn-edit" data-toggle="tooltip"
-                                                       title="Cập nhật hoa" href='${updateFlowerURL}'><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                       title="Cập nhật merchant" href='${updateMerchantURL}'><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                     </a>
                                                 </td>
                                             </tr>
@@ -113,7 +113,7 @@
     });
 
     function warningBeforeDelete() {
-         swal({
+        swal({
             title: "Xác nhận xóa",
             text: "Bạn có chắc chắn muốn xóa hay không",
             type: "warning",
@@ -133,15 +133,15 @@
     }
     function deleteNew(data) {
         $.ajax({
-            url: '${editFlowerURL}',
+            url: '${editMerchantURL}',
             type: 'DELETE',
             contentType: 'application/json',
             data: JSON.stringify(data),
             success: function (result) {
-                window.location.href = "${flowerURL}?page=1&limit=2&message=delete_success";
+                window.location.href = "${merchantURL}?page=1&limit=2&message=delete_success";
             },
             error: function (error) {
-                window.location.href = "${flowerURL}?page=1&limit=2&message=error_system";
+                window.location.href = "${merchantURL}?page=1&limit=2&message=error_system";
             }
         });
     }

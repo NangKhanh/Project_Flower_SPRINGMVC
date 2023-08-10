@@ -27,6 +27,7 @@ public class GroupEntity {
         return id;
     }
 
+
     public String getGroupName() {
         return groupName;
     }

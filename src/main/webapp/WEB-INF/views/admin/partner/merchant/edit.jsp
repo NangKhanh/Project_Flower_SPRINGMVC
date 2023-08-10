@@ -1,16 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@include file="/common/taglib.jsp"%>
-<c:url var="flowerURL" value="/quan-tri/hoa/danh-sach"/>
-<c:url var="editFlowerURL" value="/quan-tri/hoa/chinh-sua"/>
-<c:url var="newAPI" value="/api/new"/>
+<c:url var="merchantURL" value="/quan-tri/merchant/danh-sach"/>
+<c:url var="editMerchantURL" value="/quan-tri/merchant/chinh-sua"/>
 
 <html>
 <head>
     <c:if test="${empty model.id}">
-        <title>Thêm hoa vào danh sách</title>
+        <title>Thêm mới merchant</title>
     </c:if>
     <c:if test="${not empty model.id}">
-        <title>Chỉnh sửa hoa</title>
+        <title>Chỉnh sửa merchant</title>
     </c:if>
 
 </head>
@@ -44,36 +43,58 @@
                     </c:if>
                     <form:form class="form-horizontal" role="form" id="formSubmit" modelAttribute="model">
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Tên loài hoa</label>
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Họ và tên</label>
                             <div class="col-sm-9">
                                 <form:input path="name" cssClass="col-xs-10 col-sm-5"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Giá bán</label>
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Username</label>
                             <div class="col-sm-9">
-                                <form:input path="price" cssClass="col-xs-10 col-sm-5"/>
+                                <form:input path="username" cssClass="col-xs-10 col-sm-5"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Số lượng</label>
+                            <label for="type" class="col-sm-3 control-label no-padding-right">Loại khách hàng:</label>
                             <div class="col-sm-9">
-                                <form:input path="quantity" cssClass="col-xs-10 col-sm-5"/>
+                                <form:select path="type" id="type">
+                                    <form:option value="" label="-- Chọn loại khách hàng --"/>
+                                    <form:option value="merchant" label="Merchant"/>
+                                    <form:option value="vendor" label="Vendor"/>
+                                </form:select>
                             </div>
                         </div>
-                        <form:hidden path="id" id="flowerId"/>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Địa chỉ</label>
+                            <div class="col-sm-9">
+                                <form:input path="address" cssClass="col-xs-10 col-sm-5"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Số điện thoại</label>
+                            <div class="col-sm-9">
+                                <form:input path="phone" cssClass="col-xs-10 col-sm-5"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Chiết khấu</label>
+                            <div class="col-sm-9">
+                                <form:input path="discountRate" cssClass="col-xs-10 col-sm-5"/>
+                            </div>
+                        </div>
+                        <form:hidden path="id" id="merchantId"/>
                         <div class="clearfix form-actions">
                             <div class="col-md-offset-3 col-md-9">
                                 <c:if test="${not empty model.id}">
                                     <button class="btn btn-info" type="button" id="btnAddOrUpdateNew">
                                         <i class="ace-icon fa fa-check bigger-110"></i>
-                                        Cập nhật bài viết
+                                        Cập nhật merchant
                                     </button>
                                 </c:if>
                                 <c:if test="${empty model.id}">
                                     <button class="btn btn-info" type="button" id="btnAddOrUpdateNew">
                                         <i class="ace-icon fa fa-check bigger-110"></i>
-                                        Thêm bài viết
+                                        Thêm mới merchant
                                     </button>
                                 </c:if>
 
@@ -99,7 +120,7 @@
         $.each(formData, function (i, v) {
             data[""+v.name+""] = v.value;
         });
-        let id = $('#flowerId').val();
+        let id = $('#merchantId').val();
         if (id == "") {
             addNew(data);
         } else {
@@ -107,28 +128,38 @@
         }
     });
 
+    function setURL(){
+        let selectedType = $("#type").val();
+        let url;
+        if (selectedType === "merchant") {
+            url = "${editMerchantURL}";
+        }else{
+            url = "${editVendorURL}";
+        }
+        return url;
+    }
+
+
     function addNew(data) {
         $.ajax({
-            url: '${editFlowerURL}',
+            url: setURL(),
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(data),
             dataType: 'json',
             success: function (result) {
                 console.log(result)
-                window.location.href = "${editFlowerURL}?id="+result.id+"&message=insert_success";
+                window.location.href = "${editMerchantURL}?id="+result.id+"&message=insert_success";
             },
             error: function (error) {
-                window.location.href = "${flowerURL}?page=1&limit=2&message=error_system";
-                console.log(error)
-                console.log(this.url)
+                window.location.href = "${merchantURL}?page=1&limit=2&message=error_system";
             }
         });
     }
 
     function updateNew(data) {
         $.ajax({
-            url: '${editFlowerURL}',
+            url: setURL(),
             type: 'PUT',
             contentType: 'application/json',
             data: JSON.stringify(data),
