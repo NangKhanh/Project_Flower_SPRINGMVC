@@ -19,6 +19,10 @@ public class GroupEntity {
     @OneToMany(mappedBy = "group1")
     private List<UserEntity> users = new ArrayList<>();
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }
