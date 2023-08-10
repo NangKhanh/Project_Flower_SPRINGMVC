@@ -5,6 +5,9 @@
         <class>com.laptrinhjavaweb.entity.GroupEntity</class>
         <class>com.laptrinhjavaweb.entity.RoleEntity</class>
         <class>com.laptrinhjavaweb.entity.UserEntity</class>
+        <class>com.laptrinhjavaweb.entity.PartnerEntity</class>
+        <class>com.laptrinhjavaweb.entity.InvoiceEntity</class>
+
     </persistence-unit>
 </persistence>
 
