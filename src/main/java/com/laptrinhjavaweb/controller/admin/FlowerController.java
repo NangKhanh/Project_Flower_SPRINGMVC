@@ -38,7 +38,7 @@ public class FlowerController {
         model.setTotalItem(flowerService.getTotalItem());
         model.setTotalPage((int) Math.ceil((double) model.getTotalItem() / model.getLimit()));
         setMessageAndAlert(request, mav, model);
-        mav.addObject("model", model);
+//        mav.addObject("model", model);
         return mav;
     }
 
@@ -76,7 +76,7 @@ public class FlowerController {
 
     @DeleteMapping ("/quan-tri/hoa/chinh-sua")
     @ResponseBody
-    public void deleteNew(@RequestBody long[] ids){
+    public void deleteFlower(@RequestBody long[] ids){
         flowerService.delete(ids);
     }
 }

@@ -44,7 +44,7 @@
             <b class="arrow"></b>
             <ul class="submenu">
                 <li>
-                    <a href="<c:url value='/quan-tri/hoa/danh-sach?page=1&limit=2'/>">
+                    <a href="<c:url value='/quan-tri/hoa/danh-sach?page=1&limit=5'/>">
                         <i class="menu-icon fa fa-caret-right"></i>
                         Danh sách hoa
                     </a>
@@ -52,7 +52,7 @@
                 </li>
 
                 <li>
-                    <a href="<c:url value='/quan-tri/merchant/danh-sach?page=1&limit=2'/>">
+                    <a href="<c:url value='/merchant/danh-sach?page=1&limit=5'/>">
                         <i class="menu-icon fa fa-caret-right"></i>
                         Danh sách merchant
                     </a>

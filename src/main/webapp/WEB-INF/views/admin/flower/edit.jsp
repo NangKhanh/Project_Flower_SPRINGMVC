@@ -29,8 +29,6 @@
                 <li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">Home</a>
                 </li>
 
-                <li><a href="#">Forms</a></li>
-                <li class="active">Form Elements</li>
             </ul>
             <!-- /.breadcrumb -->
         </div>
@@ -119,7 +117,7 @@
                 window.location.href = "${editFlowerURL}?id="+result.id+"&message=insert_success";
             },
             error: function (error) {
-                window.location.href = "${flowerURL}?page=1&limit=2&message=error_system";
+                window.location.href = "${flowerURL}?page=1&limit=5&message=error_system";
                 console.log(error)
                 console.log(this.url)
             }
