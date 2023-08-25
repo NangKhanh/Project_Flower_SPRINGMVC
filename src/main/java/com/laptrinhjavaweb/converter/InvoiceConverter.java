@@ -1,6 +1,7 @@
 package com.laptrinhjavaweb.converter;
 
 import com.laptrinhjavaweb.dto.InvoiceDTO;
+import com.laptrinhjavaweb.dto.PartnerDTO;
 import com.laptrinhjavaweb.entity.InvoiceEntity;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +11,6 @@ public class InvoiceConverter {
         InvoiceDTO result = new InvoiceDTO();
         result.setId(entity.getId());
         result.setDiscount(entity.getDiscount());
-        result.setAmount(entity.getAmount());
         result.setTotalCost(entity.getTotalCost());
         result.setPartnerId(entity.getPartner().getId());
         return result;
@@ -19,14 +19,12 @@ public class InvoiceConverter {
     public InvoiceEntity toEntity(InvoiceDTO dto) {
         InvoiceEntity result = new InvoiceEntity();
         result.setDiscount(dto.getDiscount());
-        result.setAmount(dto.getAmount());
         result.setTotalCost(dto.getTotalCost());
         return result;
     }
 
     public InvoiceEntity toEntity(InvoiceEntity result, InvoiceDTO dto) {
         result.setDiscount(dto.getDiscount());
-        result.setAmount(dto.getAmount());
         result.setTotalCost(dto.getTotalCost());
         return result;
     }

@@ -1,9 +1,9 @@
 package com.laptrinhjavaweb.controller.web;
 
-import com.laptrinhjavaweb.dto.FlowerDTO;
 import com.laptrinhjavaweb.dto.PartnerDTO;
-import com.laptrinhjavaweb.entity.PartnerEntity;
-import com.laptrinhjavaweb.service.impl.MerchantService;
+import com.laptrinhjavaweb.dto.UserDTO;
+import com.laptrinhjavaweb.service.IMerchantService;
+import com.laptrinhjavaweb.service.IUserService;
 import com.laptrinhjavaweb.util.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -18,10 +18,13 @@ import java.util.Map;
 @Controller(value = "merchantController")
 public class MerchantController {
     @Autowired
-    private MerchantService merchantService;
+    private IMerchantService merchantService;
 
     @Autowired
     private MessageUtil messageUtil;
+
+    @Autowired
+    private IUserService userService;
 
     @GetMapping("/merchant/danh-sach")
     public ModelAndView showList(@RequestParam("page") int page,
@@ -65,7 +68,17 @@ public class MerchantController {
     @PostMapping("/merchant/chinh-sua")
     @ResponseBody
     public PartnerDTO createMerchant(@RequestBody PartnerDTO partnerDTO){
-        return merchantService.save(partnerDTO);
+
+        PartnerDTO result = merchantService.save(partnerDTO);
+
+        UserDTO userDTO = new UserDTO();
+        userDTO.setGroupId(3L);
+        userDTO.setPartnerId(result.getId());
+        userDTO.setFullName(result.getName());
+        userDTO.setUserName(result.getUsername());
+        userDTO.setFirstLogin(true);
+        userService.save(userDTO);
+        return result;
     }
 
     @PutMapping("/merchant/chinh-sua")

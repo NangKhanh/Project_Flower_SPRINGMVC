@@ -15,11 +15,17 @@ public class UserEntity {
     private String password;
     @Column(name = "fullname")
     private String fullName;
+    @Column(name = "first_login")
+    private boolean firstLogin = false;
     @Column(name = "status")
     private int status;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")
     private GroupEntity group1;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "partner_id")
+    private PartnerEntity partner;
 
     public void setId(Long id) {
         this.id = id;
@@ -67,5 +73,21 @@ public class UserEntity {
 
     public void setGroupEntity(GroupEntity groupEntity) {
         this.group1 = groupEntity;
+    }
+
+    public PartnerEntity getPartner() {
+        return partner;
+    }
+
+    public void setPartner(PartnerEntity partner) {
+        this.partner = partner;
+    }
+
+    public boolean isFirstLogin() {
+        return firstLogin;
+    }
+
+    public void setFirstLogin(boolean firstLogin) {
+        this.firstLogin = firstLogin;
     }
 }

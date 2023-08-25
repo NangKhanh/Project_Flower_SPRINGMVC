@@ -1,3 +1,5 @@
+<%@ page import="java.util.List" %>
+<%@ page import="com.laptrinhjavaweb.util.SecurityUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@include file="/common/taglib.jsp"%>
 <c:url var="merchantURL" value="/merchant/danh-sach"/>
@@ -24,8 +26,21 @@
                 }
             </script>
 
+            <%
+                List<String> roles = SecurityUtils.getAuthorities();
+                String url = "";
+
+                if (roles.contains("ADMIN")) {
+                    url = "/quan-tri/trang-chu";
+                } else if (roles.contains("USER")) {
+                    url = "/trang-chu";
+                }
+            %>
+
             <ul class="breadcrumb">
-                <li><i class="ace-icon fa fa-home home-icon"></i> <a href="<c:url value='/merchant/danh-sach?page=1&limit=5'/>">Trang chủ</a>
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="<c:url value='<%= url %>'/>">Trang chủ</a>
                 </li>
             </ul>
             <!-- /.breadcrumb -->
@@ -148,7 +163,8 @@
                 window.location.href = "${editMerchantURL}?id="+result.id+"&message=insert_success";
             },
             error: function (error) {
-                window.location.href = "${merchantURL}?page=1&limit=5&message=error_system";
+                <%--window.location.href = "${merchantURL}?page=1&limit=5&message=error_system";--%>
+                console.log(error)
             }
         });
     }

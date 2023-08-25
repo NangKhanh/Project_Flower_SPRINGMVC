@@ -24,6 +24,17 @@ public class FlowerEntity {
             inverseJoinColumns = @JoinColumn(name = "invoice_id"))
     private List<InvoiceEntity> invoices = new ArrayList<>();
 
+    @OneToMany(mappedBy = "flower")
+    private List<InvoiceDetailEntity> invoiceDetails = new ArrayList<>();
+
+    public List<InvoiceDetailEntity> getInvoiceDetails() {
+        return invoiceDetails;
+    }
+
+    public void setInvoiceDetails(List<InvoiceDetailEntity> invoiceDetails) {
+        this.invoiceDetails = invoiceDetails;
+    }
+
     public Long getId() {
         return id;
     }

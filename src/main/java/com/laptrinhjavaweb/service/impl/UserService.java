@@ -6,6 +6,7 @@ import com.laptrinhjavaweb.dto.UserDTO;
 import com.laptrinhjavaweb.entity.GroupEntity;
 import com.laptrinhjavaweb.entity.UserEntity;
 import com.laptrinhjavaweb.repository.GroupRepository;
+import com.laptrinhjavaweb.repository.PartnerRepository;
 import com.laptrinhjavaweb.repository.UserRepository;
 import com.laptrinhjavaweb.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,10 @@ public class UserService implements IUserService {
     private UserRepository userRepository;
     @Autowired
     private UserCoverter userCoverter;
-
     @Autowired
     private GroupRepository groupRepository;
-
+    @Autowired
+    private PartnerRepository partnerRepository;
     private SystemConstant constant;
     @Override
     public List<UserDTO> findAll() {
@@ -46,13 +47,24 @@ public class UserService implements IUserService {
     public UserDTO save(UserDTO dto) {
         GroupEntity group = groupRepository.findOne(dto.getGroupId());
         UserEntity userEntity = new UserEntity();
+
         if(dto.getId() != null){
             UserEntity oldUserData = userRepository.findOne(dto.getId());
             oldUserData.setGroupEntity(group);
+            if(dto.isFirstLogin() == true){
+                oldUserData.setFirstLogin(true);
+            }
             userEntity = userCoverter.toEntity(oldUserData,dto);
         }else {
             userEntity = userCoverter.toEntity(dto);
             userEntity.setGroupEntity(group);
+            if(dto.isFirstLogin() == true){
+                userEntity.setFirstLogin(true);
+            }
+
+            if(dto.getPartnerId() != null){
+                userEntity.setPartner(partnerRepository.findOne(dto.getPartnerId()));
+            }
         }
         return userCoverter.toDto(userRepository.save(userEntity));
     }

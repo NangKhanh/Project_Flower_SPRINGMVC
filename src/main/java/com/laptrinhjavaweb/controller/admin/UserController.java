@@ -1,15 +1,11 @@
 package com.laptrinhjavaweb.controller.admin;
 
 import com.laptrinhjavaweb.constant.SystemConstant;
-import com.laptrinhjavaweb.dto.FlowerDTO;
 import com.laptrinhjavaweb.dto.GroupDTO;
 import com.laptrinhjavaweb.dto.UserDTO;
-import com.laptrinhjavaweb.service.IFlowerService;
 import com.laptrinhjavaweb.service.IGroupService;
 import com.laptrinhjavaweb.service.IUserService;
-import com.laptrinhjavaweb.service.impl.UserService;
 import com.laptrinhjavaweb.util.MessageUtil;
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +26,6 @@ public class UserController {
     @GetMapping(value = "/quan-tri/nguoi-dung/danh-sach")
     public ModelAndView listUser( HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("admin/user/list");
-        System.out.println("vao do get userController");
         if (request.getParameter("message") != null) {
             Map<String, String> message = messageUtil.getMessage(request.getParameter("message"));
             mav.addObject("message", message.get("message"));
@@ -56,7 +51,6 @@ public class UserController {
             mav.addObject("message", message.get("message"));
             mav.addObject("alert", message.get("alert"));
         }
-        System.out.println("vao do get");
         mav.addObject("group", group);
         mav.addObject("model", model);
 

@@ -10,7 +10,8 @@
     <http auto-config="false" use-expressions="true" disable-url-rewriting="true">
 
         <intercept-url pattern="/quan-tri/trang-chu" access="hasRole('ADMIN')" />
-
+        <intercept-url pattern="/trang-chu" access="hasAnyRole('USER', 'ADMIN')" />
+        <intercept-url pattern="/khach-hang/trang-chu" access="hasAnyRole('CTM', 'USER', 'ADMIN')" />
         <access-denied-handler error-page="/accessDenied" />
         <form-login  login-page="/dang-nhap"
                      username-parameter="j_username"

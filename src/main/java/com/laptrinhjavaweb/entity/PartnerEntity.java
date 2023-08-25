@@ -26,6 +26,9 @@ public class PartnerEntity {
     private int status;
     @OneToMany(mappedBy = "partner")
     private List<InvoiceEntity> invoices = new ArrayList<>();
+    @OneToOne(mappedBy = "partner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private UserEntity user;
+
     public Long getId() {
         return id;
     }
@@ -92,5 +95,13 @@ public class PartnerEntity {
 
     public void setInvoices(List<InvoiceEntity> invoices) {
         this.invoices = invoices;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 }

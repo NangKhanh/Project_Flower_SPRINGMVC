@@ -50,8 +50,10 @@ public class MerchantService implements IMerchantService {
         if (dto.getId() != null) {
             PartnerEntity oldMerchant = partnerRepository.findOne(dto.getId());
             merchantEntity = partnerConverter.toEntity(oldMerchant, dto);
+            merchantEntity.setStatus(1);
         } else {
             merchantEntity = partnerConverter.toEntity(dto);
+            merchantEntity.setStatus(1);
         }
         return partnerConverter.toDto(partnerRepository.save(merchantEntity));
     }

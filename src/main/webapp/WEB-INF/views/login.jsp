@@ -32,6 +32,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary" >Đăng nhập</button>
             </form>
+            <a href="<c:url value='/dang-ky'/>" >Đăng ký</a>
         </div>
     </div>
 </div>

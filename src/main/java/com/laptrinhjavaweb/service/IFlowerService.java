@@ -11,4 +11,5 @@ public interface IFlowerService {
 	FlowerDTO findById(long id);
 	FlowerDTO save(FlowerDTO dto);
 	void delete(long[] ids);
+	List<FlowerDTO> searchFlowers(String keyword);
 }

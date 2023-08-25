@@ -64,4 +64,14 @@ public class FlowerService implements IFlowerService {
 			flowerRepository.delete(id);
 		}
 	}
+
+	@Override
+	public List<FlowerDTO> searchFlowers(String keyword) {
+		List<FlowerDTO> dtos = new ArrayList<>();
+		List<FlowerEntity> entities = flowerRepository.findByNameContaining(keyword);
+		for (FlowerEntity item : entities){
+			dtos.add(flowerConverter.toDto(item));
+		}
+		return dtos;
+	}
 }

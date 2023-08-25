@@ -6,11 +6,14 @@ import com.laptrinhjavaweb.util.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Controller(value = "flowerController")
@@ -60,6 +63,16 @@ public class FlowerController {
             mav.addObject("alert", message.get("alert"));
         }
         mav.addObject("model", model);
+    }
+
+    @GetMapping(value = "tim-kiem-hoa", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<FlowerDTO> searchFlower(@RequestParam(value = "keyword", required = false) String keyword){
+        List<FlowerDTO> flowers = new ArrayList<>();
+        if(keyword != null){
+            flowers = flowerService.searchFlowers(keyword);
+        }
+        return flowers;
     }
 
     @PostMapping("/quan-tri/hoa/chinh-sua")

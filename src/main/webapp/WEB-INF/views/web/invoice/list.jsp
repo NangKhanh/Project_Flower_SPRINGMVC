@@ -1,3 +1,5 @@
+<%@ page import="java.util.List" %>
+<%@ page import="com.laptrinhjavaweb.util.SecurityUtils" %>
 <%@include file="/common/taglib.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
@@ -18,10 +20,22 @@
 
         <div class="main-content-inner">
             <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+
+                <%
+                    List<String> roles = SecurityUtils.getAuthorities();
+                    String url = "";
+
+                    if (roles.contains("ADMIN")) {
+                        url = "/quan-tri/trang-chu";
+                    } else if (roles.contains("USER")) {
+                        url = "/trang-chu";
+                    }
+                %>
+
                 <ul class="breadcrumb">
                     <li>
                         <i class="ace-icon fa fa-home home-icon"></i>
-                        <a href="#">Trang chủ</a>
+                        <a href="<c:url value='<%= url %>'/>">Trang chủ</a>
                     </li>
                 </ul>
                 <!-- /.breadcrumb -->
@@ -29,6 +43,11 @@
             <div class="page-content">
                 <div class="row">
                     <div class="col-xs-12">
+                        <c:if test="${not empty message}">
+                            <div class="alert alert-${alert}">
+                                    ${message}
+                            </div>
+                        </c:if>
                         <div class="widget-box table-filter">
                             <div class="table-btn-controls">
                                 <div class="pull-right tableTools-container">
@@ -59,9 +78,8 @@
                                     <table class="table table-bordered">
                                         <thead>
                                         <tr>
-                                            <th><input type="checkbox" id="checkAll"></th>
-                                            <th>Chiết </th>
-                                            <th>Số lượng</th>
+                                            <th></th>
+                                            <th>Chiết khấu</th>
                                             <th>Tổng tiền</th>
                                             <th>Thao tác</th>
                                         </tr>
@@ -71,7 +89,6 @@
                                             <tr>
                                                 <td><input type="checkbox" id="checkbox_${item.id}" value="${item.id}"></td>
                                                 <td>${item.discount}</td>
-                                                <td>${item.amount}</td>
                                                 <td>${item.totalCost}</td>
                                                 <td>
                                                     <c:url var="updateInvoiceURL" value="/hoa-don/chinh-sua">

@@ -57,8 +57,9 @@ public class InvoiceService implements IInvoiceService {
             invoiceEntity = invoiceConverter.toEntity(oldInvoice, dto);
         }else{
             invoiceEntity = invoiceConverter.toEntity(dto);
-            invoiceEntity.setStatus(1);
         }
+        invoiceEntity.setPartner(partnerRepository.findOne(dto.getPartnerId()));
+        invoiceEntity.setStatus(1);
         return invoiceConverter.toDto(invoiceRepository.save(invoiceEntity));
     }
 
@@ -70,4 +71,5 @@ public class InvoiceService implements IInvoiceService {
             invoiceRepository.save(entity);
         }
     }
+
 }

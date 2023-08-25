@@ -12,8 +12,6 @@ public class InvoiceEntity {
     private Long id;
     @Column(name = "discount")
     private float discount;
-    @Column(name = "amount")
-    private int amount;
     @Column(name = "total_cost")
     private int totalCost;
     @Column(name = "status")
@@ -26,6 +24,17 @@ public class InvoiceEntity {
     @JoinColumn(name = "partner_id")
     private PartnerEntity partner;
 
+    @OneToMany(mappedBy = "invoice")
+    private List<InvoiceDetailEntity> invoiceDetails = new ArrayList<>();
+
+    public List<InvoiceDetailEntity> getInvoiceDetails() {
+        return invoiceDetails;
+    }
+
+    public void setInvoiceDetails(List<InvoiceDetailEntity> invoiceDetails) {
+        this.invoiceDetails = invoiceDetails;
+    }
+
     public Long getId() {
         return id;
     }
@@ -36,14 +45,6 @@ public class InvoiceEntity {
 
     public void setDiscount(float discount) {
         this.discount = discount;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
     }
 
     public int getTotalCost() {

@@ -4,11 +4,11 @@ import java.util.List;
 
 public class InvoiceDTO extends AbstractDTO<InvoiceDTO>{
     private float discount;
-    private int amount;
     private int totalCost;
     private int status;
     private Long partnerId;
     private List<FlowerDTO> flowers;
+    private List<InvoiceDetailDTO> invoiceDetails;
 
     public float getDiscount() {
         return discount;
@@ -16,14 +16,6 @@ public class InvoiceDTO extends AbstractDTO<InvoiceDTO>{
 
     public void setDiscount(float discount) {
         this.discount = discount;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
     }
 
     public int getTotalCost() {
@@ -56,5 +48,13 @@ public class InvoiceDTO extends AbstractDTO<InvoiceDTO>{
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public List<InvoiceDetailDTO> getInvoiceDetails() {
+        return invoiceDetails;
+    }
+
+    public void setInvoiceDetails(List<InvoiceDetailDTO> invoiceDetails) {
+        this.invoiceDetails = invoiceDetails;
     }
 }

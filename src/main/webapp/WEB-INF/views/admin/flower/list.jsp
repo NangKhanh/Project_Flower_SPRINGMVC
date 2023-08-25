@@ -29,6 +29,11 @@
             <div class="page-content">
                 <div class="row">
                     <div class="col-xs-12">
+                        <c:if test="${not empty message}">
+                            <div class="alert alert-${alert}">
+                                    ${message}
+                            </div>
+                        </c:if>
                         <div class="widget-box table-filter">
                             <div class="table-btn-controls">
                                 <div class="pull-right tableTools-container">
@@ -57,9 +62,10 @@
                                     <table class="table table-bordered">
                                         <thead>
                                         <tr>
-                                            <th><input type="checkbox" id="checkAll"></th>
+                                            <th></th>
                                             <th>Tên hoa</th>
-                                            <th>Gia</th>
+                                            <th>Giá</th>
+                                            <th>Số lượng</th>
                                             <th>Thao tác</th>
                                         </tr>
                                         </thead>
@@ -69,6 +75,7 @@
                                                 <td><input type="checkbox" id="checkbox_${item.id}" value="${item.id}"></td>
                                                 <td>${item.name}</td>
                                                 <td>${item.price}</td>
+                                                <td>${item.quantity}</td>
                                                 <td>
                                                     <c:url var="updateFlowerURL" value="/quan-tri/hoa/chinh-sua">
                                                         <c:param name="id" value="${item.id}"/>

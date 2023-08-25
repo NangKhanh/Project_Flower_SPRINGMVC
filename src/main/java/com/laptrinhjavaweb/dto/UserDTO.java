@@ -5,11 +5,12 @@ import com.laptrinhjavaweb.entity.GroupEntity;
 public class UserDTO extends AbstractDTO{
     private String userName;
     private String password;
+    private boolean firstLogin;
     private int status;
     private Long GroupId;
     private String GroupName;
-
     private String fullName;
+    private Long partnerId;
     public String getUserName() {
         return userName;
     }
@@ -57,5 +58,21 @@ public class UserDTO extends AbstractDTO{
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public Long getPartnerId() {
+        return partnerId;
+    }
+
+    public void setPartnerId(Long partnerId) {
+        this.partnerId = partnerId;
+    }
+
+    public boolean isFirstLogin() {
+        return firstLogin;
+    }
+
+    public void setFirstLogin(boolean firstLogin) {
+        this.firstLogin = firstLogin;
     }
 }

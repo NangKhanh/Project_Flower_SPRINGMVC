@@ -2,9 +2,7 @@ package com.laptrinhjavaweb.service.impl;
 
 import com.laptrinhjavaweb.converter.GroupConverter;
 import com.laptrinhjavaweb.dto.GroupDTO;
-import com.laptrinhjavaweb.dto.UserDTO;
 import com.laptrinhjavaweb.entity.GroupEntity;
-import com.laptrinhjavaweb.entity.UserEntity;
 import com.laptrinhjavaweb.repository.GroupRepository;
 import com.laptrinhjavaweb.service.IGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class GroupServcie implements IGroupService {
+public class GroupService implements IGroupService {
     @Autowired
     private GroupRepository groupRepository;
     @Autowired
